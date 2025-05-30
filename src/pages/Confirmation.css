@@ -1,0 +1,66 @@
+/* Confirmation.css */
+.confirmation-container {
+  font-family: "Segoe UI", sans-serif;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.header {
+  padding: 1rem;
+}
+
+.logo {
+  width: 120px;
+}
+
+.tagline {
+  font-size: 1.1rem;
+  color: #444;
+}
+
+.background-image {
+  background-image: url("../assets/background.jpg"); /* Adjust if needed */
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay-card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 20px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.confirmation-text {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2e7d32;
+  margin-bottom: 0.5rem;
+}
+
+.subtext {
+  font-size: 1rem;
+  color: #444;
+}
+
+.home-button {
+  margin-top: 1.5rem;
+  background-color: #005ea2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.home-button:hover {
+  background-color: #004b3e;
+}

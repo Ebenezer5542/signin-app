@@ -1,0 +1,63 @@
+.welcome-container {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  color: #003c2d;
+}
+
+.header {
+  background-color: #00e3cc;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+}
+
+.logo {
+  height: 40px;
+  margin-left: 20px;
+}
+
+.tagline {
+  font-size: 18px;
+  color: #003c2d;
+}
+
+.background-image {
+  background-image: url("/background.jpg"); /* Replace with your image path */
+  background-size: cover;
+  background-position: center;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay-card {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 80%;
+}
+
+.date-time {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.welcome-text {
+  font-size: 32px;
+  margin: 10px 0;
+}
+
+.sign-in-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #004b3e;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+}
