@@ -7,6 +7,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import os
 import json
+import psycopg2
 
 app = Flask(__name__)
 CORS(app)
@@ -49,9 +50,9 @@ def append_data(values):
 
 # Enable foreign‐key enforcement on every connection
 def get_db():
-    conn = sqlite3.connect('ipa_ghana_staff.db')
-    conn.execute('PRAGMA foreign_keys = ON;')
-    return conn
+    db_url = os.environ.get("DATABASE_URL")
+    return psycopg2.connect(db_url)
+
 
 @app.route('/')
 def home():
@@ -64,7 +65,7 @@ def get_staff(staff_id):
     conn = get_db()
     cursor = conn.cursor()
     cursor.execute(
-        'SELECT staff_id, name, department FROM ipagh_staff WHERE staff_id = ?',
+        'SELECT staff_id, name, department FROM ipagh_staff WHERE staff_id = %s',
         (staff_id,)
     )
     row = cursor.fetchone()
@@ -94,7 +95,7 @@ def signin():
     conn = get_db()
     cursor = conn.cursor()
     cursor.execute(
-        'INSERT INTO signins (staff_id, name, department, time_stamp, sign_type) VALUES (?, ?, ?, ?,?)',
+        'INSERT INTO signins (staff_id, name, department, time_stamp, sign_type) VALUES (%s, %s, %s, %s,%s)',
         (staff_id, name, dept, timestamp,sign_type)
     )
     conn.commit()
