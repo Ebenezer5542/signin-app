@@ -11,23 +11,27 @@ import json
 app = Flask(__name__)
 CORS(app)
 # Path to your downloaded service account key
-SERVICE_ACCOUNT_FILE = os.environ.get("GOOGLE_SERVICE_JSON")
+# Load service account JSON from env
+service_json = os.environ["GOOGLE_SERVICE_JSON"]
+service_info = json.loads(service_json)
 
-# Scope for Google Sheets access
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+# Create base credentials from JSON
+credentials = service_account.Credentials.from_service_account_info(service_info)
 
-# Authenticate with the service account
-credentials = service_account.Credentials.from_service_account_file(
-    SERVICE_ACCOUNT_FILE,
-    scopes=SCOPES
-)
+# Add scopes
+scoped_credentials = credentials.with_scopes([
+    "https://www.googleapis.com/auth/spreadsheets",
+])
+
+# Build Google Sheets API client with scoped credentials
+sheets_service = build("sheets", "v4", credentials=scoped_credentials)
 
 # Spreadsheet info
 SPREADSHEET_ID = os.environ.get("SPREADSHEET_ID")
 RANGE_NAME = 'Sheet1!A1'
 
 def append_data(values):
-    service = build('sheets', 'v4', credentials=credentials)
+    service = build('sheets', 'v4', credentials=scoped_credentials)
     sheet = service.spreadsheets()
     body = {
         'values': values
@@ -40,7 +44,6 @@ def append_data(values):
         body=body
     ).execute()
     print(f"{result.get('updates').get('updatedCells')} cells appended.")
-
 
 
 
