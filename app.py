@@ -48,10 +48,56 @@ def append_data(values):
 
 
 
+
+
 # Enable foreign‐key enforcement on every connection
 def get_db():
     db_url = os.environ.get("DATABASE_URL")
     return psycopg2.connect(db_url)
+
+def init_db():
+    conn = get_db()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS ipagh_staff (
+            staff_id INTEGER PRIMARY KEY,
+            name TEXT,
+            department TEXT
+        );
+    """)
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS signins (
+            id SERIAL PRIMARY KEY,
+            staff_id INTEGER NOT NULL,
+            name TEXT,
+            department TEXT,
+            time_stamp TEXT,
+            sign_type TEXT,
+            FOREIGN KEY (staff_id) REFERENCES ipagh_staff(staff_id)
+        );
+    """)
+
+    # Staff data to insert
+    dg = [
+        (103, 'Appiah Kubi', 'OPERATIONS'),
+        (104, 'Ama Asaah', 'RFE'),
+        (105, 'Akwesi Boadi', 'RESEARCH QUALITY'),
+    ]
+
+    # Insert staff records, skip if staff_id already exists
+    insert_query = """
+        INSERT INTO ipagh_staff (staff_id, name, department)
+        VALUES (%s, %s, %s)
+        ON CONFLICT (staff_id) DO NOTHING;
+    """
+    cursor.executemany(insert_query, dg)
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
 
 
 @app.route('/')
