@@ -5,11 +5,13 @@ import sqlite3
 from datetime import datetime
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
+import os
+import json
 
 app = Flask(__name__)
 CORS(app)
 # Path to your downloaded service account key
-SERVICE_ACCOUNT_FILE = 'data-from-python-461318-30bbc687e733.json'
+SERVICE_ACCOUNT_FILE = os.environ.get("GOOGLE_SERVICE_JSON")
 
 # Scope for Google Sheets access
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
@@ -21,7 +23,7 @@ credentials = service_account.Credentials.from_service_account_file(
 )
 
 # Spreadsheet info
-SPREADSHEET_ID = '1Y_6ulmj9iBsAYL4Xrb-f8vjoWtUZBeFuf-iUcB-JLGo'
+SPREADSHEET_ID = os.environ.get("SPREADSHEET_ID")
 RANGE_NAME = 'Sheet1!A1'
 
 def append_data(values):
