@@ -53,6 +53,12 @@ def get_db():
     conn.execute('PRAGMA foreign_keys = ON;')
     return conn
 
+@app.route('/')
+def home():
+    return 'Server is running!'
+
+
+
 @app.route('/api/staff/<staff_id>', methods=['GET'])
 def get_staff(staff_id):
     conn = get_db()
