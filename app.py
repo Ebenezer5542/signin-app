@@ -109,6 +109,16 @@ def home():
 def ping():
     print("Ping received — backend is awake!")
     return '', 200
+    
+@app.route('/routes', methods=['GET'])
+def list_routes():
+    import urllib
+    output = []
+    for rule in app.url_map.iter_rules():
+        methods = ','.join(rule.methods)
+        line = urllib.parse.unquote(f"{rule.rule:30s} [{methods}]")
+        output.append(line)
+    return '<br>'.join(sorted(output))
 
 
 @app.route('/api/staff/<staff_id>', methods=['GET'])
