@@ -105,6 +105,11 @@ def home():
     return 'Server is running!'
 
 
+@app.route('/api/ping', methods=['GET'])
+def ping():
+    print("Ping received — backend is awake!")
+    return '', 200
+
 
 @app.route('/api/staff/<staff_id>', methods=['GET'])
 def get_staff(staff_id):
