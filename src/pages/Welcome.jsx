@@ -3,15 +3,17 @@ import { useNavigate } from "react-router-dom";
 import "./Welcome.css"; // We'll create this file for styling
 import logo from "../assets/ipa-logo.svg"; // Adjust the path as necessary
 import { motion } from 'framer-motion';
-
+import { useEffect } from 'react';
 
 const BACKEND_URL = "https://signin-app-u4p2.onrender.com"
 
 export default function Welcome() {
   useEffect(() => {
-  // Silent ping to wake up the backend
-  fetch(`${BACKEND_URL}/api/ping`).catch(() => {});
+  fetch(`${BACKEND_URL}/api/ping`)
+    .then((res) => console.log("Ping status:", res.status))
+    .catch((err) => console.error("Ping error:", err));
 }, []);
+
   const currentDate = new Date();
   const navigate = useNavigate();
   const formattedDate = currentDate.toLocaleDateString("en-US", {
