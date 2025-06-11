@@ -9,14 +9,14 @@
   padding: 1rem;
 }
 
-.logo {
-  width: 120px;
+.tagline {
+  font-size: 10px;
+  color: #000;
+  text-align: right;
+  padding-right: 50px; /* Optional spacing from the edge */
+  width: 100%;
 }
 
-.tagline {
-  font-size: 1.1rem;
-  color: #444;
-}
 
 .background-image {
   background-image: url("../assets/background.jpg"); /* Adjust if needed */
@@ -28,13 +28,14 @@
   align-items: center;
 }
 
-.overlay-card {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 2rem;
+.overlay-card3 {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 40px;
   border-radius: 20px;
-  max-width: 400px;
-  width: 100%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .confirmation-text {
@@ -47,6 +48,7 @@
 .subtext {
   font-size: 1rem;
   color: #444;
+
 }
 
 .home-button {
@@ -63,4 +65,11 @@
 
 .home-button:hover {
   background-color: #004b3e;
+}
+
+.custom-message {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #2c3e50;
+  font-weight: 500;
 }
