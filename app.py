@@ -8,6 +8,7 @@ from googleapiclient.discovery import build
 import os
 import json
 import psycopg2
+import pandas
 
 app = Flask(__name__)
 CORS(app)
@@ -50,53 +51,62 @@ def append_data(values):
 
 
 
-# Enable foreign‐key enforcement on every connection
-def get_db():
-    db_url = os.environ.get("DATABASE_URL")
-    return psycopg2.connect(db_url)
+#"""# Enable foreign‐key enforcement on every connection
+#def get_db():
+#    db_url = os.environ.get("DATABASE_URL")
+ #   return psycopg2.connect(db_url)
 
-def init_db():
-    conn = get_db()
-    cursor = conn.cursor()
+#def init_db():
+ #   conn = get_db()
+  #  cursor = conn.cursor()
 
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS ipagh_staff (
-            staff_id INTEGER PRIMARY KEY,
-            name TEXT,
-            department TEXT
-        );
-    """)
+   # cursor.execute("""
+    #    CREATE TABLE IF NOT EXISTS ipagh_staff (
+     #       staff_id INTEGER PRIMARY KEY,
+      #      name TEXT,
+       #     department TEXT
+        #);
+    #""")
 
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS signins (
-            id SERIAL PRIMARY KEY,
-            staff_id INTEGER NOT NULL,
-            name TEXT,
-            department TEXT,
-            time_stamp TEXT,
-            sign_type TEXT,
-            FOREIGN KEY (staff_id) REFERENCES ipagh_staff(staff_id)
-        );
-    """)
+  #  cursor.execute("""
+   #     CREATE TABLE IF NOT EXISTS signins (
+    #        id SERIAL PRIMARY KEY,
+     #       staff_id INTEGER NOT NULL,
+      #      name TEXT,
+       #     department TEXT,
+        #    time_stamp TEXT,
+        #    sign_type TEXT,
+         #   FOREIGN KEY (staff_id) REFERENCES ipagh_staff(staff_id)
+   #     );
+    #""")
 
     # Staff data to insert
-    dg = [
-        (103, 'Appiah Kubi', 'OPERATIONS'),
-        (104, 'Ama Asaah', 'RFE'),
-        (105, 'Akwesi Boadi', 'RESEARCH QUALITY'),
-    ]
+#    dg = [
+ #       (103, 'Appiah Kubi', 'OPERATIONS'),
+  #      (104, 'Ama Asaah', 'RFE'),
+   #     (105, 'Akwesi Boadi', 'RESEARCH QUALITY'),
+   # ]
 
     # Insert staff records, skip if staff_id already exists
-    insert_query = """
-        INSERT INTO ipagh_staff (staff_id, name, department)
-        VALUES (%s, %s, %s)
-        ON CONFLICT (staff_id) DO NOTHING;
-    """
-    cursor.executemany(insert_query, dg)
+#    insert_query = """
+ #       INSERT INTO ipagh_staff (staff_id, name, department)
+  #      VALUES (%s, %s, %s)
+   #     ON CONFLICT (staff_id) DO NOTHING;
+    #"""
+   # cursor.executemany(insert_query, dg)
 
-    conn.commit()
-    cursor.close()
-    conn.close()
+#    conn.commit()
+ #   cursor.close()
+  #  conn.close()
+#"""
+# Static staff list (can also load from CSV)
+staff_df = pd.DataFrame([
+    {'staff_id': 103, 'name': 'Appiah Kubi', 'department': 'OPERATIONS'},
+    {'staff_id': 104, 'name': 'Ama Asaah', 'department': 'RFE'},
+    {'staff_id': 105, 'name': 'Akwesi Boadi', 'department': 'RESEARCH QUALITY'},
+])
+
+
 
 
 
@@ -123,20 +133,22 @@ def list_routes():
 
 @app.route('/api/staff/<staff_id>', methods=['GET'])
 def get_staff(staff_id):
-    conn = get_db()
-    cursor = conn.cursor()
-    cursor.execute(
-        'SELECT staff_id, name, department FROM ipagh_staff WHERE staff_id = %s',
-        (staff_id,)
-    )
-    row = cursor.fetchone()
-    cursor.close()
-    conn.close()
+    try:
+        sid = int(staff_id)
+    except ValueError:
+        return jsonify({'error': 'Invalid staff ID'}), 400
 
-    if row:
-        return jsonify({'staff_id':row[0] , 'name': row[1], 'department': row[2]})
+    match = staff_df[staff_df["staff_id"] == sid]
+    if not match.empty:
+        staff = match.iloc[0]
+        return jsonify({
+            'staff_id': staff.staff_id,
+            'name': staff.name,
+            'department': staff.department
+        })
     else:
         return jsonify({'error': 'Staff not found'}), 404
+
 
 
 @app.route('/favicon.ico')
@@ -154,21 +166,13 @@ def signin():
     timestamp = datetime.now().isoformat()
     sign_type = data.get('sign_type')
 
-    conn = get_db()
-    cursor = conn.cursor()
-    cursor.execute(
-        'INSERT INTO signins (staff_id, name, department, time_stamp, sign_type) VALUES (%s, %s, %s, %s,%s)',
-        (staff_id, name, dept, timestamp,sign_type)
-    )
-    conn.commit()
-    conn.close()
-
-
+    # Just append to Google Sheets
     append_data([[staff_id, name, dept, timestamp, sign_type]])
 
     return jsonify({'status': 'success'}), 201
 
+
 if __name__ == '__main__':
-    init_db()  # create tables and seed data
+    #init_db()  # create tables and seed data
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
