@@ -142,10 +142,11 @@ def get_staff(staff_id):
     if not match.empty:
         staff = match.iloc[0]
         return jsonify({
-            'staff_id': staff.staff_id,
-            'name': staff.name,
-            'department': staff.department
+            'staff_id': int(staff.staff_id),
+            'name': str(staff.name),
+            'department': str(staff.department)
         })
+
     else:
         return jsonify({'error': 'Staff not found'}), 404
 
