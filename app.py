@@ -140,13 +140,12 @@ def get_staff(staff_id):
 
     match = staff_df[staff_df["staff_id"] == sid]
     if not match.empty:
-        staff = match.iloc[0]
+        staff = match.iloc[0].to_dict()
         return jsonify({
-            'staff_id': int(staff.staff_id),
-            'name': str(staff.name),
-            'department': str(staff.department)
+            'staff_id': staff['staff_id'],
+            'name': staff['name'],
+            'department': staff['department']
         })
-
     else:
         return jsonify({'error': 'Staff not found'}), 404
 
