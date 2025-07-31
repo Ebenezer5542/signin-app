@@ -7,7 +7,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import os
 import json
-import psycopg2
+#import psycopg2
 import pandas
 
 app = Flask(__name__)
