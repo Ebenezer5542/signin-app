@@ -8,7 +8,7 @@ from googleapiclient.discovery import build
 import os
 import json
 #import psycopg2
-import pandas
+import pandas as pd
 
 app = Flask(__name__)
 CORS(app)
