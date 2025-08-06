@@ -7,11 +7,28 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import os
 import json
+from math import radians, cos, sin, asin, sqrt
 #import psycopg2
 import pandas as pd
 
 app = Flask(__name__)
 CORS(app)
+
+# Office coordinates (replace with your actual GPS)
+OFFICE_LAT = 5.668864
+OFFICE_LON =  -0.127795
+ALLOWED_RADIUS = 200  # meters
+
+def haversine_distance(lat1, lon1, lat2, lon2):
+    R = 6371000  # Earth radius in meters
+    dLat = radians(lat2 - lat1)
+    dLon = radians(lon2 - lon1)
+    a = sin(dLat / 2) ** 2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dLon / 2) ** 2
+    c = 2 * asin(sqrt(a))
+    return R * c
+
+
+
 # Path to your downloaded service account key
 # Load service account JSON from env
 service_json = os.environ["GOOGLE_SERVICE_JSON"]
@@ -110,6 +127,7 @@ staff_df = pd.DataFrame([
 
 
 
+
 @app.route('/')
 def home():
     return 'Server is running!'
@@ -119,7 +137,28 @@ def home():
 def ping():
     print("Ping received — backend is awake!")
     return '', 200
-    
+
+
+
+@app.route('/api/check-location', methods=['POST'])
+def check_location():
+    data = request.get_json()
+    user_lat = data.get('lat')
+    user_lon = data.get('lon')
+
+    if user_lat is None or user_lon is None:
+        return jsonify({'error': 'Missing coordinates'}), 400
+
+    distance = haversine_distance(OFFICE_LAT, OFFICE_LON, user_lat, user_lon)
+    allowed = distance <= ALLOWED_RADIUS
+
+    print(f"User is {distance:.2f} meters away. Allowed: {allowed}")
+
+    return jsonify({'allow': allowed, 'distance': round(distance, 2)})
+
+
+
+
 @app.route('/routes', methods=['GET'])
 def list_routes():
     import urllib
@@ -176,3 +215,4 @@ if __name__ == '__main__':
     #init_db()  # create tables and seed data
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
+
