@@ -14,7 +14,7 @@ import pandas as pd
 app = Flask(__name__)
 CORS(app)
 
-# Office coordinates (replace with your actual GPS)
+# Office coordinates
 OFFICE_LAT = 5.668864
 OFFICE_LON =  -0.127795
 ALLOWED_RADIUS = 200  # meters
