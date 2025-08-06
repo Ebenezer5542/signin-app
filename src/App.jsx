@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Welcome from "./pages/Welcome";
 import SignIn from "./pages/SignIn";
 import Confirmation from "./pages/Confirmation";
