@@ -42,3 +42,57 @@ html, body {
 .read-the-docs {
   color: #888;
 }
+
+
+.screen-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f8f9ff, #e0e4ff);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.card {
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.card.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.card h2 {
+  margin: 1rem 0 0.5rem;
+  color: #333;
+}
+
+.card p {
+  color: #666;
+}
+
+.card.denied {
+  background: linear-gradient(135deg, #ff4e50, #f9d423);
+  color: white;
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #4e54c8;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
