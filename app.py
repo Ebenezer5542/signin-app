@@ -15,8 +15,8 @@ app = Flask(__name__)
 CORS(app)
 
 # Office coordinates
-OFFICE_LAT = 5.668864
-OFFICE_LON =  -0.127795
+OFFICE_LAT = 5.6063808
+OFFICE_LON =  -0.2124564
 ALLOWED_RADIUS = 200  # meters
 
 def haversine_distance(lat1, lon1, lat2, lon2):
