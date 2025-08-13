@@ -47,7 +47,7 @@ sheets_service = build("sheets", "v4", credentials=scoped_credentials)
 
 # Spreadsheet info
 SPREADSHEET_ID = os.environ.get("SPREADSHEET_ID")
-RANGE_NAME = 'Sheet1!A1'
+RANGE_NAME = 'DATA!A1'
 
 def append_data(values):
     service = build('sheets', 'v4', credentials=scoped_credentials)
@@ -215,4 +215,5 @@ if __name__ == '__main__':
     #init_db()  # create tables and seed data
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
+
 
