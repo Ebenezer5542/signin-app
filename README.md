@@ -4,7 +4,7 @@ A web application for staff to log **arrivals** and **departures** at the office
 The system checks location radius, validates staff IDs, and records sign-ins directly into **Google Sheets**.
 
 ## 🚀 Live Demo
-- **Frontend (React)** → [Visit App](https://ohenebeng.github.io/signin-app/){:target="_blank"}
+- **Frontend (React)** → [Visit App](https://ebenezer5542.github.io/signin-app)
 
 ---
 
