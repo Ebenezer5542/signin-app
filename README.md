@@ -1,4 +1,4 @@
-#Staff Sign-In App
+# Staff Sign-In App
 
 A web application for staff to log **arrivals** and **departures** at the office.  
 The system checks location radius, validates staff IDs, and records sign-ins directly into **Google Sheets**.
