@@ -1,11 +1,10 @@
-# IPA Staff Sign-In App
+#Staff Sign-In App
 
-A web application for IPA staff to log **arrivals** and **departures** at the office.  
+A web application for staff to log **arrivals** and **departures** at the office.  
 The system checks location radius, validates staff IDs, and records sign-ins directly into **Google Sheets**.
 
 ## 🚀 Live Demo
-- **Frontend (React)** → [Visit App](https://signin-app.pages.dev){:target="_blank"}
-- **Backend (Flask)** → [Render API](https://signin-app-u4p2.onrender.com){:target="_blank"}
+- **Frontend (React)** → [Visit App](https://ohenebeng.github.io/signin-app/){:target="_blank"}
 
 ---
 
@@ -13,7 +12,7 @@ The system checks location radius, validates staff IDs, and records sign-ins dir
 
 This repository has **two main branches**:
 
-- **`main`** → Frontend (React + Vite + PWA)
+- **`main`** → Frontend (React + Vite)
 - **`backend`** → Flask API with Google Sheets integration
 
 ---
@@ -51,7 +50,6 @@ This repository has **two main branches**:
 
 | Method | Endpoint                  | Description |
 |--------|---------------------------|-------------|
-| GET    | `/api/ping`               | Health check |
 | POST   | `/api/check-location`     | Validate if user is within office radius |
 | GET    | `/api/staff/<staff_id>`   | Get staff details by ID |
 | POST   | `/api/signin`             | Submit arrival/departure sign-in |
