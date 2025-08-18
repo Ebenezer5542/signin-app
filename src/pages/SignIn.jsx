@@ -104,7 +104,7 @@ export default function SignIn() {
               <h1 className="signin-title">STAFF LOG</h1>
               <div className="form-group">
                 <label htmlFor="signType" className="form-label">
-                  Are you arriving or departing?
+                  <div className="fd">Are you arriving or departing?</div>
                 </label>
                 <div className="sign-type-toggle">
                   <button

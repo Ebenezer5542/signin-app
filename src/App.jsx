@@ -10,7 +10,7 @@ const BACKEND_URL = "https://signin-app-u4p2.onrender.com";
 function App() {
   const [authorized, setAuthorized] = useState(null); // null = loading
 
-  useEffect(() => {
+/*  useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -64,7 +64,7 @@ function App() {
       </div>
     );
   }
-
+*/
   return (
     <Router>
       <Routes>

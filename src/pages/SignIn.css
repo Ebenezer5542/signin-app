@@ -90,6 +90,8 @@ html, body, #root {
   color: #f1f1f1;
 }
 
+
+
 /* 🔘 Inputs */
 input {
   width: 100%;
@@ -150,7 +152,7 @@ input:focus {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
 }
 
-
+/* Input + Spinner */
 .input-with-spinner {
   display: flex;
   align-items: center;
@@ -225,6 +227,7 @@ input:focus {
   color: #00ff99;
 }
 
+/* 🔘 Arrival / Departure Toggle */
 .sign-type-toggle {
   display: flex;
   justify-content: center;
@@ -232,49 +235,67 @@ input:focus {
   margin: 20px 0;
 }
 
-/* 🔘 Buttons */
 .toggle-btn {
-  flex: 1;
-  padding: 14px 20px;
+  flex: none;
+  width: 140px;
+  padding: 14px 0;
   border: none;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.15);
   color: #fff;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: all 0.25s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
-/* Hover */
-.toggle-btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.25);
+.fd {
+text-align: center;
+font-size: 20px;
+
+
 }
 
-/* Active state */
+
 .toggle-btn.active {
-  background: linear-gradient(135deg, #ff4e50, #f9d423); /* you can swap with your brand colors */
+  background-color: #F15A24; 
   color: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* Disabled */
+.toggle-btn:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
 .toggle-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* 📱 Mobile-Friendly Select */
+/* 📱 Mobile-Friendly Adjustments */
 @media (max-width: 768px) {
   .select-input {
-    background: rgba(255, 255, 255, 0.95) !important; /* solid so it's tappable */
-    color: #000 !important; /* dark text for readability */
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #000 !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     border: 1px solid #ccc !important;
-    padding-right: 14px; /* remove space for arrow */
-    background-image: none !important; /* remove custom arrow */
+    padding-right: 14px;
+    background-image: none !important;
+  }
+
+  .toggle-btn {
+    width: 48%;
+    font-size: 0.95rem;
+    background-color: #fff;
+    color: #000;
+  }
+
+  .toggle-btn.active {
+    background-color: #F15A24;
+    color: #fff;
+    box-shadow: none;
   }
 }
