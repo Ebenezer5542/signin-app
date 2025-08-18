@@ -3,35 +3,15 @@ html, body, #root {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .welcome-container {
-  
-  font-family: Arial, sans-serif;
-  text-align: center;
-  color: #003c2d;
   height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
 }
-
-.welcome-container .tagline {
-  font-size: 10px;
-  color: #000;
-  text-align: right;
-  padding-right: 10px; /* Optional spacing from the edge */
-  width: 100%; /* Ensure it spans full width */
-}
-
-/*.header {
-  background-color: #00e3cc;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 10px;
-}*/
 
 .header {
   display: flex;
@@ -39,65 +19,153 @@ html, body, #root {
   background-color: #ffffff;
   padding: 10px 20px;
   box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .logo {
   height: 50px;
-  margin-right: 50px;
+  margin-right: 20px;
 }
 
+.tagline {
+  font-size: 12px;
+  color: #444;
+  margin-left: auto;
+}
 
-.background-image {
-  background-image: url("../assets/background.jpg"); /* Adjust if needed */
-  background-size: cover;
-  background-position: center;
-  min-height: 100vh;
+/* Animated orange/black gradient background */
+.welcome-bg {
+  background: linear-gradient(135deg, #000000, #F15A24, #000000, #F15A24);
+  background-size: 400% 400%;
+  animation: gradientFlow 10s ease infinite;
+  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
 }
 
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-
-/*.overlay-card {
-  background-color: rgba(255, 255, 255, 0.7);
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-  max-width: 80%;
-}*/
-
+/* Futuristic overlay card */
 .overlay-card {
-  background: rgba(255, 255, 255, 0.8);
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  padding: 60px 80px;
+  border-radius: 24px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   text-align: center;
-  justify-content: center;
-  align-items: center;
+  color: white;
+  max-width: 700px;
+  width: 90%;
 }
 
-
-
+/* Date & Time */
 .date-time {
   font-weight: bold;
-  margin-bottom: 10px;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  opacity: 0.85;
 }
 
-.welcome-text {
-  font-size: 6vwm;
-  margin: 10px 0;
-  font-weight: 1000;
+/* Heading */
+.welcome-heading {
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: #ffffff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 20px 0;
 }
 
+/* Description */
+.welcome-description {
+  font-size: 1.1rem;
+  margin: 20px auto;
+  max-width: 600px;
+  line-height: 1.6;
+  color: #f1f1f1;
+}
+
+/* Button */
 .signin-button {
-  display: inline-block;
-  margin-top: 50px;
-  padding: 2vh 4vw;
-  background-color: #004b3e;
+  margin-top: 30px;
+  padding: 14px 40px;
+  background: linear-gradient(90deg, #F15A24, #000000);
+  border: none;
+  border-radius: 12px;
   color: white;
-  text-decoration: none;
-  border-radius: 8px;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signin-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #000000, #F15A24);
+  box-shadow: 0 6px 20px rgba(241, 90, 36, 0.4);
+}
+
+/* ===================== */
+/* 📱 Responsive Styling */
+/* ===================== */
+@media (max-width: 768px) {
+  .overlay-card {
+    padding: 40px 30px;
+    border-radius: 18px;
+  }
+
+  .welcome-heading {
+    font-size: 2.2rem;
+    letter-spacing: 1.5px;
+  }
+
+  .welcome-description {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin: 15px auto;
+    max-width: 90%;
+  }
+
+  .signin-button {
+    padding: 12px 28px;
+    font-size: 1rem;
+  }
+
+  .logo {
+    height: 40px;
+    margin-right: 10px;
+  }
+
+  .tagline {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .overlay-card {
+    padding: 30px 20px;
+  }
+
+  .welcome-heading {
+    font-size: 1.8rem;
+  }
+
+  .welcome-description {
+    font-size: 0.95rem;
+  }
+
+  .signin-button {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+    border-radius: 10px;
+  }
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SignIn.css";
-import logo from "../assets/ipa-logo.svg";
+import logo from "../assets/logo-192.png";
 import { Link } from "react-router-dom";
 
 const BACKEND_URL = "https://signin-app-u4p2.onrender.com";
@@ -87,10 +87,10 @@ export default function SignIn() {
         <Link to="/">
           <img src={logo} alt="IPA Logo" className="logo" />
         </Link>
-        <h2 className="tagline">More Evidence, Less Poverty</h2>
+        <h2 className="tagline">Sign-In made easy</h2>
       </header>
 
-      <div className="background-image">
+      <div className="signin-bg">
         <div className="overlay-card2">
           {isSuccess ? (
             // ————————————— SUCCESS STATE —————————————
@@ -106,17 +106,22 @@ export default function SignIn() {
                 <label htmlFor="signType" className="form-label">
                   Are you arriving or departing?
                 </label>
-                <select
-                  id="signType"
-                  value={signType}
-                  onChange={(e) => setSignType(e.target.value)}
-                  className="select-input"
-                  required
-                  disabled={isLoading || isSuccess}
-                >
-                  <option value="arrival">🟢 Arrival</option>
-                  <option value="departure">🔴 Departure</option>
-                </select>
+                <div className="sign-type-toggle">
+                  <button
+                    className={`toggle-btn ${signType === "arrival" ? "active" : ""}`}
+                    onClick={() => setSignType("arrival")}
+                    disabled={isLoading || isSuccess}
+                  >
+                    🟢 Arrival
+                  </button>
+                  <button
+                    className={`toggle-btn ${signType === "departure" ? "active" : ""}`}
+                    onClick={() => setSignType("departure")}
+                    disabled={isLoading || isSuccess}
+                  >
+                    🔴 Departure
+                  </button>
+                </div>
               </div>
 
               <form onSubmit={handleSubmit} className="signin-form">
